@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { cleanObj } from "utils";
 import qs from "qs";
 import useDebounce from "./useDebounce";
+import { useHttp } from "utils/http";
+import useMount from "./useMount";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -15,23 +17,14 @@ const ProjectList = () => {
   });
   const debounceParam = useDebounce(param, 500);
   const [users, setUsers] = useState([]);
+  const http = useHttp();
 
   useEffect(() => {
-    fetch(`${apiUrl}/projects/?${qs.stringify(cleanObj(debounceParam))}`).then(
-      async (response) => {
-        if (response.ok) {
-          setList(await response.json());
-        }
-      }
-    );
+    http("projects", { data: cleanObj(debounceParam) }).then(setList);
   }, [debounceParam]);
 
   useMount(() => {
-    fetch(`${apiUrl}/users`).then(async (response) => {
-      if (response.ok) {
-        setUsers(await response.json());
-      }
-    });
+    http("users", { data: cleanObj(debounceParam) }).then(setUsers);
   });
 
   return (
@@ -42,9 +35,3 @@ const ProjectList = () => {
   );
 };
 export default ProjectList;
-
-const useMount = (callback: () => void) => {
-  useEffect(() => {
-    callback();
-  }, []);
-};
