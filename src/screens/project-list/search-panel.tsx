@@ -1,3 +1,4 @@
+import { Form, Input, Select } from "antd";
 import React from "react";
 
 export interface User {
@@ -19,41 +20,34 @@ interface SearchPanelProps {
 }
 
 const SearchPanel = ({ users, setParam, param }: SearchPanelProps) => {
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    name: string
-  ) => {
+  const handleChange = (e: string, name: string) => {
     setParam({
       ...param,
-      [name]: e.target.value,
+      [name]: e,
     });
   };
 
   return (
-    <form>
-      <input
+    <Form>
+      <Input
         type="text"
         value={param.name}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          handleChange(e, "name")
+          handleChange(e.target.value, "name")
         }
       />
-      <select
-        name=""
-        id=""
+      <Select
         value={param.personId}
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-          handleChange(e, "personId")
-        }
+        onChange={(v: string) => handleChange(v, "personId")}
       >
-        <option value="">全部</option>
+        <Select.Option value="">全部</Select.Option>
         {users.map((user) => (
-          <option key={user.id} value={user.id}>
+          <Select.Option key={user.id} value={user.id}>
             {user.name}
-          </option>
+          </Select.Option>
         ))}
-      </select>
-    </form>
+      </Select>
+    </Form>
   );
 };
 export default SearchPanel;

@@ -2,12 +2,9 @@ import List from "./list";
 import SearchPanel from "./search-panel";
 import { useEffect, useState } from "react";
 import { cleanObj } from "utils";
-import qs from "qs";
 import useDebounce from "./useDebounce";
 import { useHttp } from "utils/http";
 import useMount from "./useMount";
-
-const apiUrl = process.env.REACT_APP_API_URL;
 
 const ProjectList = () => {
   const [list, setList] = useState([]);

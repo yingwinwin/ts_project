@@ -1,7 +1,7 @@
 import AuthenticatenApp from "authenticated-app";
 import { useAuth } from "context/auth-context";
 import UnauthenticatenApp from "unauthenticated-app";
-import "./App.css";
+import "./App.less";
 
 function App() {
   const { user } = useAuth();

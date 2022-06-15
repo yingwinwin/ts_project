@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+- 联合类型
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```ts
+const age: string | number = 7;
+```
 
-## Available Scripts
+- 类型别名 type
 
-In the project directory, you can run:
+```ts
+type Age = string | number;
+const age: Age = "7";
+```
 
-### `npm start`
+- type 和 interface
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. interface 不能用来实现 `联合类型`
+2. interface 不能实现 `Utility`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- typeof
 
-### `npm test`
+1. ts 中的 是在静态环境运行的，把类型提取出来
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```ts
+interface Person {
+  name: string;
+  age: number;
+}
+```
 
-### `npm run build`
+- keyof
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. 把对象类型的 key 取出来，然后把他们联合起来，变成联合类型
+2. `keyof Person` 取出来之后 `name | age`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- in
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. 用来循环类型 P in K
 
-### `npm run eject`
+- Utility
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Parameters<typeof type> 用 typeof 把其他类型取出来
+2. Partial<T> 传入的类型变成可选
+3. Omit<T,'name'> 把第一个类型里面的 name 删掉，操作的是键值对
+4. Pick<Person, 'name'> 取出 name 变成一个新的类型
+5. Exclude<PersonKeys, 'name'> 操作联合类型，删除第二个传入的参数

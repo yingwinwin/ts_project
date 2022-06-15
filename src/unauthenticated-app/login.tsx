@@ -1,29 +1,34 @@
+import { Button, Card, Form, Input } from "antd";
 import { useAuth } from "context/auth-context";
-import { FormEvent } from "react";
 
 const Login = () => {
   const { login } = useAuth();
-  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    const username = (evt.currentTarget.elements[0] as HTMLInputElement).value;
-    const password = (evt.currentTarget.elements[1] as HTMLInputElement).value;
+  const onSubmit = ({
+    password,
+    username,
+  }: {
+    password: string;
+    username: string;
+  }) => {
     login({ username, password });
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="">
-        用户名
-        <input name="username" type="text" />
-      </label>
-      <label htmlFor="">
-        密码
-        <input name="password" type="password" />
-      </label>
-      <div>
-        <button>登录</button>
-      </div>
-    </form>
+    <Card>
+      <Form onFinish={onSubmit}>
+        <Form.Item name="username" label="用户名">
+          <Input type="text" />
+        </Form.Item>
+        <Form.Item name="password" label="密码">
+          <Input type="password" />
+        </Form.Item>
+        <div>
+          <Button htmlType="submit" type="primary">
+            登录
+          </Button>
+        </div>
+      </Form>
+    </Card>
   );
 };
 
