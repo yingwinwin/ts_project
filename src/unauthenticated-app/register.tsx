@@ -16,11 +16,11 @@ const RegisterScreen = () => {
   return (
     <Card>
       <Form onFinish={onSubmit}>
-        <Form.Item name="username" label="用户名">
-          <Input type="text" />
+        <Form.Item name="username">
+          <Input type="text" placeholder="用户名" />
         </Form.Item>
-        <Form.Item name="password" label="密码">
-          <Input type="password" />
+        <Form.Item name="password">
+          <Input type="password" placeholder="密码" />
         </Form.Item>
         <div>
           <Button htmlType="submit" type="primary">
