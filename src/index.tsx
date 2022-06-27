@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.less";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-// @ts-ignore
 import { loadDevTools } from "jira-dev-tool";
 import "antd/dist/antd.less";
 import AppProviders from "context";

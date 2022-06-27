@@ -1,10 +1,11 @@
-export const cleanObj = (object: object) => {
+const isVoid = (value: unknown) =>
+  value === undefined || value === null || value === "";
+
+export const cleanObj = (object: { [key: string]: unknown }) => {
   let result = { ...object };
   Object.keys(result).forEach((key) => {
-    // @ts-ignore
     const value = object[key];
-    if (!value.toString()) {
-      // @ts-ignore
+    if (isVoid(value)) {
       delete result[key];
     }
   });

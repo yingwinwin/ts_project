@@ -1,13 +1,13 @@
 import { useAuth } from "context/auth-context";
 import ProjectList from "screens/project-list";
-import { Button } from "antd";
+import { Button, Dropdown, Menu } from "antd";
 import styled from "@emotion/styled";
 import { Row } from "components/lib";
 
 // 从布局出发用gird  从内容出发用flex
 // 二维用grid   一维用flex
 const AuthenticatenApp = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <Container>
       <Header>
@@ -16,7 +16,19 @@ const AuthenticatenApp = () => {
           <h3>用户</h3>
         </HeaderLeft>
         <HeaderRight>
-          <Button onClick={logout}>登出</Button>
+          <Dropdown
+            overlay={
+              <Menu>
+                <Menu.Item key={"logout"}>
+                  <Button type="link" onClick={logout}>
+                    登出
+                  </Button>
+                </Menu.Item>
+              </Menu>
+            }
+          >
+            <Button type="link">Hi! {user?.name} </Button>
+          </Dropdown>
         </HeaderRight>
       </Header>
       <Main>
@@ -31,11 +43,9 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const Header = styled.header`
-  grid-area: header;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+const Header = styled(Row)`
+  padding: 3.2rem;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
   justify-content: space-between;
 `;
 const HeaderLeft = styled(Row)``;
